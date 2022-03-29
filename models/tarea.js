@@ -8,6 +8,7 @@ class Tarea {
     completadoEn = null;
 
     constructor( descripcion ){
+        //estoy creando la tarea
         this.id = uuidv4();
         this.desc = descripcion;
     }

@@ -2,7 +2,8 @@ require('colors')
 const {
     inquirerMenu,
     pausa,
-    leerInput
+    leerInput,
+    listadoTareasBorrar
 } = require('./helpers/inquirer')
 const { guardarDB, leerDB } = require('./helpers/guardarArchivo')
 const Tareas = require('./models/tareas')
@@ -20,7 +21,6 @@ const main = async () => {
     do {
         //imprimir el menu
         opt = await inquirerMenu();
-
         switch (opt) {
             //va a seleccionar la opcion y viene al swtich
             case '1':
@@ -30,21 +30,28 @@ const main = async () => {
 
             case '2':
                 //usar el listadoArr para listar las tareas xD
-                tareas.listadoArr.map(e => {
-                    console.log('descripcion de la tarea: ' + e.desc.cyan + '\nFecha: ' + e.completadoEn)
-                })
+                tareas.listadoCompleto()
                 break;
 
             case '3':
+                //listar completadas
+                tareas.listarPendientesCompletadas('')
                 break;
 
             case '4':
+                //listar pendientes
+                tareas.listarPendientesCompletadas(false)
                 break;
 
             case '5':
                 break;
 
-            case '6':
+            case '6': 
+                //Borrar tareas
+                const id = await listadoTareasBorrar( tareas.listadoArr )
+                //confirmar si quiere eliminar
+                tareas.borrarTarea(id)
+                console.log({id})
                 break;
         }
 

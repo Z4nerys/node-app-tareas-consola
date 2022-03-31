@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 class Tarea {
     id = '';
     desc= '';
-    completadoEn = null;
+    completadoEn = false;
 
     constructor( descripcion ){
         //estoy creando la tarea

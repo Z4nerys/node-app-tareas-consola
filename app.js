@@ -4,7 +4,9 @@ const {
     pausa,
     leerInput,
     listadoTareasBorrar,
-    confirmar
+    confirmar,
+    marcarTareasCompletadas,
+    mostrarListadoChecklist
 } = require('./helpers/inquirer')
 const { guardarDB, leerDB } = require('./helpers/guardarArchivo')
 const Tareas = require('./models/tareas')
@@ -45,6 +47,9 @@ const main = async () => {
                 break;
 
             case '5':
+                //marcar tareas completadas
+                const ids = await mostrarListadoChecklist(tareas.listadoArr)
+                tareas.marcarTarea(ids)
                 break;
 
             case '6':

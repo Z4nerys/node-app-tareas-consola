@@ -27,8 +27,8 @@ class Tareas {
         this._listado = {}
     }
 
-    borrarTarea( id= ''){
-        if(this._listado[id]){
+    borrarTarea(id = '') {
+        if (this._listado[id]) {
             delete this._listado[id];
         }
     }
@@ -48,14 +48,30 @@ class Tareas {
     listadoCompleto() {
         console.log()
         this.listadoArr.forEach((tarea, i) => {
-            console.log(`${(i + 1) + '.'}`.green, tarea.desc + ' :: ', tarea.completadoEn ? 'Completado'.green : 'Pendiente'.red)
+            console.log(`${(i + 1) + '.'}`.green, tarea.desc + ' :: ', tarea.completadoEn ? tarea.completadoEn.green : 'Pendiente'.red)
         })
     }
 
-    listarPendientesCompletadas( completadas){
-        const tareas = this.listadoArr.filter(tarea => typeof(tarea.completadoEn) == typeof(completadas))
-        tareas.forEach(( tarea, i)=>{
+    listarPendientesCompletadas(completadas) {
+        const tareas = this.listadoArr.filter(tarea => typeof (tarea.completadoEn) == typeof (completadas))
+        tareas.forEach((tarea, i) => {
             console.log(`${(i + 1) + '.'}`.green, tarea.desc + ' :: ', tarea.completadoEn ? tarea.completadoEn.green : 'Pendiente'.red)
+        })
+    }
+
+    marcarTarea(ids = []) {
+
+        ids.map(id => {
+            const tarea = this._listado[id];
+            if (!tarea.completadoEn) {
+                tarea.completadoEn = new Date().toISOString()
+            }
+        });
+
+        this.listadoArr.forEach(tarea =>{
+            if(!ids.includes(tarea.id)){
+                this._listado[tarea.id].completadoEn = false
+            }
         })
     }
 }
